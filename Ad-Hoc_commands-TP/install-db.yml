@@ -1,0 +1,18 @@
+---
+- name: This sets up a MariaDB server
+  hosts: database
+  become: yes
+  tasks:
+  - name: Add official MariaDB repository
+    yum_repository:
+      name: MariaDB
+      description: Official MariaDB repository
+      baseurl: "http://yum.mariadb.org/10.3/centos7-amd64"
+      gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+      gpgcheck: true
+    tags: mariadb
+
+  - name: Install packages
+    package:
+      name: MariaDB-server
+      state: installed
